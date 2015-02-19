@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Students</title>
+</head>
+<body>
+
+	<h1>Список студентов:</h1>
+	<a href="index.php">Вернуться в профиль</a>
+	<br>
+	<br>
+	<form action='list.php' method='post'>
+		    <input type="text" name="search" placeholder='Поиск'>
+	    	<br>
+	    	<p>Сортровать по:</p>
+		    <select size="1" name="sort">
+			    <option value="points" selected>Баллам</option>
+			 	<option value="name">Имени</option>
+				<option value="surname">Фамилии</option>
+				<option value="groupnum">Группе</option>
+			</select>
+			<br>
+			<select size="1" name="order">
+			    <option value="DESC" selected>По убыванию</option>
+			 	<option value="ASC">По возрастанию</option>
+			</select>   
+			   
+			<br>
+		    <input type="submit" name="submitsearch" value="Поиск">
+		</form>
+
+	<?	for($i=1;$i<=$numpages;$i++):?>
+	    	<a href="list.php?num=<?= $i?> "><?= htmlspecialchars($_GET['num'])?></a>       
+		<? endfor; ?>
+		<br>
+		<br>
+
+
+	<?  for($j=0;$j<$numstudents;$j++):?>
+			<?= htmlspecialchars($students[$j*$_GET['num']]->showName()) ?>     <br /> 
+			<?= htmlspecialchars($students[$j*$_GET['num']]->showSurname()) ?>  <br />
+			<?= htmlspecialchars($students[$j*$_GET['num']]->showGroupnum()) ?> <br />
+			<?= htmlspecialchars($students[$j*$_GET['num']]->showPoints()) ?>   <br />
+
+			<br>
+	<? endfor; ?>
+
+</body>
+</html>
