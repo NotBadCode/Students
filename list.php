@@ -1,24 +1,21 @@
 <?php
-	require_once "/lib/pdo.php";
-	$mapper = new DataMapper($DBH);
+require_once "/lib/Profile.php";
+require_once "/lib/pdo.php";
+require_once "/lib/Datamapper.php";
 
-	if(!isset($_COOKIE['studentscookie']['id'])){
-		header("Location: index.php");
-	}
+$mapper = new DataMapper($DBH);
 
+if (isset($_GET['submitsearch'])) {
+    $students = $mapper->searchStudents($_GET['search'], $_GET['sort'], $_GET['order']);
+} else {
+    $students = $mapper->getAllStudents();
+}
 
-	if(isset($_POST['submitsearch'])){
-		$students=$mapper->searchStudents($_POST['search'],$_POST['sort'],$_POST['order']);
-	}
-	else
-	{
-		$students=$mapper->showAllStudents();
-	}
+$numstudents = count($students);
+$numpages    = ceil($numstudents / 50);
+$_GET['num'] = 1;
 
-	$numstudents=count($students);
-	$numpages=ceil($numstudents/50);
-	$_GET['num']=1;
-   
-
-	include "templates/list.html";
+include "templates/header.html";
+include "templates/list.html";
+include "templates/footer.html";
 ?>

@@ -1,54 +1,45 @@
+<h1><?= htmlspecialchars($head) ?></h1>
+<h4><?= htmlspecialchars($message)?></h4>
+<form class="form" method="post" action="index.php"><br>		
+	<input type="text" name="name" placeholder="Имя" value="<?= htmlspecialchars($student->getName())?>"
+	<?if($error=="name"):?> style="border:2px solid red;"<?endif?>>  	
+	<br> 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Profile</title>
-</head>
-<body>
-	<h1><?= htmlspecialchars($head) ?></h1>
-	<h3> <?= htmlspecialchars($student->showID()) ?></h3>
-	<form class="form" method="post" action="index.php"><br>		
-		<input type="text" name="name" placeholder="Имя" <?if($error=="name"):?> style="border:2px solid red;"<?endif?>>  
-		<?= htmlspecialchars($student->showName())?>
-		<br> 
+	<input type="text" name="surname" placeholder="Фамилия" value="<?= htmlspecialchars($student->getSurname())?>"
+	<?if($error=="surname"):?> style="border:2px solid red;"<?endif?>> 
+	<br>
 
-		<input type="text" name="surname" placeholder="Фамилия" <?if($error=="surname"):?> style="border:2px solid red;"<?endif?>> 
-		<?= htmlspecialchars($student->showSurname())?>
-		<br>
+	<select size="1" name="sex" <?if($error=="sex"):?> style="border:2px solid red;"<?endif?>><option disabled selected> Выберите пол</option>
+ 	<option value="male" <?php if($student->getSex()=='male'): ?> selected<?php endif; ?>>Мужской</option>
+	<option value="female"  <?php if($student->getSex()=='female'): ?> selected<?php endif; ?>>Женский</option></select>  
+	<br>
 
-		<select size="1" name="sex" <?if($error=="sex"):?> style="border:2px solid red;"<?endif?>><option disabled selected> Выберите пол</option>
-	 	<option value="1" <?php if($student->showSex()=='1'): ?> selected<?php endif; ?>>Мужской</option>
-		<option value="0"  <?php if($student->showSex()=='0'): ?> selected<?php endif; ?>>Женский</option></select>  
-		<br>
+	<input type="text" name="groupnum" placeholder="Группа" value="<?= htmlspecialchars($student->getGroupnum())?>" 
+	<?if($error=="groupnum"):?> style="border:2px solid red;"<?endif?>> 
+	<br>
 
-		<input type="text" name="groupnum" placeholder="Группа" <?if($error=="groupnum"):?> style="border:2px solid red;"<?endif?>> 
-		<?= htmlspecialchars($student->showGroupnum())?>
-		<br>
+	<input type="text" name="email" placeholder="Почта" value="<?= htmlspecialchars($student->getEmail())?>" 
+	<?if($error=="emailwrong"):?> style="border:2px solid red;"<?endif?>> 
+	<?if($error=="emailused"):?> Email уже используется<?endif?>	
+	<br>
 
-		<input type="text" name="email" placeholder="Почта" <?if($error=="emailwrong"):?> style="border:2px solid red;"<?endif?>> 
-		<?if($error=="emailused"):?> Email уже используется<?endif?>
-		<?= htmlspecialchars($student->showEmail())?>
-		<br>
+	<input type="text" name="points" placeholder="Суммарный балл" value="<?= htmlspecialchars($student->getPoints()) ?>" 
+	<?if($error=="points"):?> style="border:2px solid red;"<?endif?>> 	 
+	<br>
 
-		<input type="text" name="points" placeholder="Суммарный балл" <?if($error=="points"):?> style="border:2px solid red;"<?endif?>> 
-		<?= htmlspecialchars($student->showPoints()) ?>   
-		<br>
+	<input type="text" name="year" placeholder="Год рождения" value="<?= htmlspecialchars($student->getYear())?>" 
+	<?if($error=="year"):?> style="border:2px solid red;"<?endif?>> 
+	<br>
 
-		<input type="text" name="year" placeholder="Год рождения" <?if($error=="year"):?> style="border:2px solid red;"<?endif?>> 
-		<?= htmlspecialchars($student->showYear())?> 
-		<br>
+	<select size="1" name="place" <?if($error=="place"):?> style="border:2px solid red;"<?endif?>><option disabled selected> Проживание</option>
+ 	<option value="local" <?php if($student->getPlace()=='local'): ?> selected<?php endif; ?>>Местный </option>
+	<option value="nonlocal"  <?php if($student->getPlace()=='nonlocal'): ?> selected<?php endif; ?>>Иногородний</option></select> 
+	<br>
 
-		<select size="1" name="place" <?if($error=="place"):?> style="border:2px solid red;"<?endif?>><option disabled selected> Проживание</option>
-	 	<option value="1" <?php if($student->showPlace()=='1'): ?> selected<?php endif; ?>>Местный </option>
-		<option value="0"  <?php if($student->showPlace()=='0'): ?> selected<?php endif; ?>>Иногородний</option></select> 
-		<br>
+	<input type="submit" name="submit" value="отправить">
+</form>
 
-		<input type="submit" name="submit" value="отправить">
-	</form>
 
-	<? if($showlist==1){?> <a href="list.php"> Спиок студентов</a> <?}?> 
+
+<a href="list.php"> Спиок студентов</a>
 	
-
-</body>
-</html>

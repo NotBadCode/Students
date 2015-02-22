@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Фев 19 2015 г., 13:21
+-- Время создания: Фев 22 2015 г., 16:34
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -30,25 +30,27 @@ CREATE TABLE IF NOT EXISTS `students` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `surname` varchar(100) NOT NULL,
-  `sex` int(1) NOT NULL,
+  `sex` enum('male','female') NOT NULL,
   `groupnum` int(5) NOT NULL,
   `email` varchar(100) NOT NULL,
   `points` int(3) NOT NULL,
-  `year` int(4) NOT NULL,
-  `place` int(2) NOT NULL,
+  `year` year(4) NOT NULL,
+  `place` enum('local','nonlocal') NOT NULL,
+  `code` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Дамп данных таблицы `students`
 --
 
-INSERT INTO `students` (`id`, `name`, `surname`, `sex`, `groupnum`, `email`, `points`, `year`, `place`) VALUES
-(1, 'Ivan', 'Ivanov', 0, 9999, 'ivan@ivan.ivan', 400, 1999, 0),
-(2, 'Sema', 'Ivanov', 1, 4444, '26666', 300, 1998, 1),
-(3, 'Arr', 'Arr', 1, 1111, '1@1.mm', 222, 1995, 1),
-(4, 'dDD', 'FFF', 0, 1111, 'R@R.co', 222, 1995, 0),
-(5, 'GGG', 'Vp', 1, 1234, 'dd@dd.mm', 222, 1998, 1);
+INSERT INTO `students` (`id`, `name`, `surname`, `sex`, `groupnum`, `email`, `points`, `year`, `place`, `code`) VALUES
+(1, 'Petr', 'Semenov', 'male', 1111, 'petrmail@mail.bb', 235, 1995, 'nonlocal', 'eyus9r3amjx2tczw8q05t6g628ymimpr'),
+(2, 'Galina', 'Favova', 'female', 4567, 'fg@mailb.com', 300, 1996, 'local', 'ls2bmiqn2xaoktfsggdqzpu9ecnrkus1'),
+(3, 'Ivan', 'Vodaka', 'male', 6767, 'vodvan@non.ml', 350, 1994, 'nonlocal', 'jzv5h7ffl6u8s4mlaiin7nqxzckhpcm9'),
+(4, 'Zoy', 'Ivanova', 'female', 8899, 'ivaz@br.ml', 200, 1997, 'nonlocal', '7xizdt2eejbbbe6n20vjnyjd0h0nqa93'),
+(5, 'Nikolay', 'Vodka', 'male', 6767, 'rt@vd.bb', 390, 1995, 'local', 'k9pv6ec7wofg76976fa4qeugekkzb5q5'),
+(6, 'Ivan', 'Ivanov', 'male', 6767, 'ivanov@ivanov.com', 400, 1995, 'local', 'r28diu5oekpy5036ssjfp27h5my37c4v');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -1,48 +1,56 @@
 <?php
 
-	require_once "/lib/pdo.php";
+require_once "/lib/Profile.php";
+require_once "/lib/pdo.php";
+require_once "/lib/Datamapper.php";
 
-	$mapper = new DataMapper($DBH);
-	
-		if(isset($_COOKIE['studentscookie']['id'])){
-			$id=$_COOKIE['studentscookie']['id'];
-			$head="Ваши данные:";
-			$showlist=1;
-			$student=$mapper->showStudentsbyID($id);
+$mapper = new DataMapper($DBH);
+if (isset($_COOKIE['studentscookie']['code'])) {
+    $code    = $_COOKIE['studentscookie']['code'];
+    $head    = "Ваши данные:";
+    $student = $mapper->getStudentsbyCode($code);
+    $new     = 0;
+    $message = "вы можете их изменить";
+} else {
+    $head    = "Зарегистрируйтесь";
+    $student = new Profile;
+    $new     = 1;
+    $message = '';
+}
 
-			if(isset($_POST['submit'])){
-				$error=$student->setFields($_POST);
-				if($mapper->emailUsed($_POST['email']))
-					$error="emailused";
-        		if(!$error){
-					$mapper->editProfile($student);
-				}
-			}
-		}
-		else{
-			$showlist=0;
-			$head="Зарегистрируйтесь";
-			$student=new Profile;
+if (isset($_POST['submit'])) {
+    
+    $student->setFields($_POST);
+    
+    if ($mapper->isemailUsed($_POST['email'], $code)) {
+        $error   = "emailused";
+        $message = "Такой email уже зарегистрирован!";
+    } else {
+        $error = $student->checkFields();
+    }
+    
+    if (!$error) {
+        if ($new) {
+            $student->generateCode();
+            while ($mapper->iscodeUsed($student->getCode())) {
+                $student->generateCode();
+            }
+            $mapper->addStudent($student);
+            $code = $student->getCode();
+            setcookie("studentscookie[code]", $code, time() + (7 * 24 * 60 * 60 * 42), "/");
+            header("Location: index.php");
+            die();
+        } else {
+            $mapper->editProfile($student);
+            $message = "Данные успешно изменены!";
+        }
+    }
+}
 
-			if(isset($_POST['submit'])){
-				
-				
-				if($mapper->emailUsed($_POST['email']))
-					$error="emailused";
-				else
-					$error=$student->setFields($_POST);
-        		if(!$error){
-        			$mapper->addStudent($student);
-					setcookie("studentscookie[id]", $mapper->getLastID(), time()+(7*24*60*60*42), "/");
-					header("Location: index.php");
-        		}
-				
-			}
-		}
 
-		
 
-	include "templates/profile.html";
+include "templates/header.html";
+include "templates/profile.html";
+include "templates/footer.html";
 
 ?>
-
