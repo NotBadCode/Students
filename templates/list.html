@@ -1,39 +1,46 @@
+<?php include "templates/header.html"; ?>
+
 <h1>Список студентов:</h1>
-<a href="index.php">Вернуться в профиль</a>
-<br>
-<br>
 <form action='list.php' method='get'>
-	    <input type="text" name="search" placeholder='Поиск'>
-    	<br>
-    	<p>Сортровать по:</p>
+		<legend>Поиск</legend>
+	    <input type="text" name="search" placeholder='имя, фамилия, группа'>
+    	<label>Сортровать по:</label>
 	    <select size="1" name="sort">
 		    <option value="points" selected>Баллам</option>
 		 	<option value="name">Имени</option>
 			<option value="surname">Фамилии</option>
 			<option value="groupnum">Группе</option>
 		</select>
-		<br>
 		<select size="1" name="order">
 		    <option value="DESC" selected>По убыванию</option>
 		 	<option value="ASC">По возрастанию</option>
 		</select>   
-		   
-		<br>
 	    <input type="submit" name="submitsearch" value="Поиск">
 	</form>
 
-<?	for($i=1;$i<=$numpages;$i++):?>
+<?php	for($i=1;$i<=$numpages;$i++):?>
     	<a href="list.php?num=<?= $i?> "><?= htmlspecialchars($_GET['num'])?></a>       
-	<? endfor; ?>
-	<br>
-	<br>
+<?php endfor; ?>
 
+<table class="table table-bordered">
+	<tr>
+		<th>Имя</th>     
+		<th>Фамилия</th>  
+		<th>Группа</th> 
+		<th>Суммарный балл</th>  
+	</tr> 
 
-<?  for($j=0;$j<$numstudents;$j++):?>
-		<?= htmlspecialchars($students[$j*$_GET['num']]->getName()) ?>     <br /> 
-		<?= htmlspecialchars($students[$j*$_GET['num']]->getSurname()) ?>  <br />
-		<?= htmlspecialchars($students[$j*$_GET['num']]->getGroupnum()) ?> <br />
-		<?= htmlspecialchars($students[$j*$_GET['num']]->getPoints()) ?>   <br />
+	<?php foreach( $students as $student ): ?>
 
-		<br>
-<? endfor; ?>
+		<tr>
+			<td><?= htmlspecialchars($student->getName()) ?> </td>     
+			<td><?= htmlspecialchars($student->getSurname()) ?></td>  
+			<td><?= htmlspecialchars($student->getGroupnum()) ?></td> 
+			<td><?= htmlspecialchars($student->getPoints()) ?></td>  
+		</tr> 
+
+	<?php endforeach; ?>
+
+</table>
+
+<?php include "templates/footer.html"; ?>

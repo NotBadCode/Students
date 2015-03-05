@@ -1,10 +1,10 @@
 <?php
 
 require_once "/lib/Profile.php";
-require_once "/lib/pdo.php";
-require_once "/lib/Datamapper.php";
+require_once "/lib/PDO.php";
+require_once "/lib/StudentsMapper.php";
 
-$mapper = new DataMapper($DBH);
+$mapper = new StudentsMapper($DBH);
 if (isset($_COOKIE['studentscookie']['code'])) {
     $code    = $_COOKIE['studentscookie']['code'];
     $head    = "Ваши данные:";
@@ -48,9 +48,4 @@ if (isset($_POST['submit'])) {
 }
 
 
-
-include "templates/header.html";
 include "templates/profile.html";
-include "templates/footer.html";
-
-?>

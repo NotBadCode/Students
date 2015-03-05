@@ -1,45 +1,46 @@
+<?php include "templates/header.html"; ?>
+
 <h1><?= htmlspecialchars($head) ?></h1>
 <h4><?= htmlspecialchars($message)?></h4>
-<form class="form" method="post" action="index.php"><br>		
-	<input type="text" name="name" placeholder="Имя" value="<?= htmlspecialchars($student->getName())?>"
-	<?if($error=="name"):?> style="border:2px solid red;"<?endif?>>  	
-	<br> 
+<form class="form" method="post" action="index.php" class="form-horizontal">	
+	<input type="text" name="name" placeholder="Имя"   value="<?= htmlspecialchars($student->getName())?>"
+	<?php if($error=="name"):?> class="alert-danger"<?php endif?>>  	
+	 
 
 	<input type="text" name="surname" placeholder="Фамилия" value="<?= htmlspecialchars($student->getSurname())?>"
-	<?if($error=="surname"):?> style="border:2px solid red;"<?endif?>> 
-	<br>
+	<?php if($error=="surname"):?> class="alert-danger"<?php endif?>> 
+	
 
-	<select size="1" name="sex" <?if($error=="sex"):?> style="border:2px solid red;"<?endif?>><option disabled selected> Выберите пол</option>
+	<select size="1" name="sex" <?if($error=="sex"):?> class="alert-danger"<?php endif; ?>>
+	<option disabled selected> Выберите пол</option>
  	<option value="male" <?php if($student->getSex()=='male'): ?> selected<?php endif; ?>>Мужской</option>
 	<option value="female"  <?php if($student->getSex()=='female'): ?> selected<?php endif; ?>>Женский</option></select>  
-	<br>
+	
 
 	<input type="text" name="groupnum" placeholder="Группа" value="<?= htmlspecialchars($student->getGroupnum())?>" 
-	<?if($error=="groupnum"):?> style="border:2px solid red;"<?endif?>> 
-	<br>
+	<?php if($error=="groupnum"):?> class="alert-danger"<?php endif; ?>> 
+	
 
 	<input type="text" name="email" placeholder="Почта" value="<?= htmlspecialchars($student->getEmail())?>" 
-	<?if($error=="emailwrong"):?> style="border:2px solid red;"<?endif?>> 
-	<?if($error=="emailused"):?> Email уже используется<?endif?>	
-	<br>
+	<?php if($error=="emailwrong"):?> class="alert-danger"<?php endif; ?>> 
+	<?php if($error=="emailused"):?> Email уже используется<?php endif; ?>	
+	
 
 	<input type="text" name="points" placeholder="Суммарный балл" value="<?= htmlspecialchars($student->getPoints()) ?>" 
-	<?if($error=="points"):?> style="border:2px solid red;"<?endif?>> 	 
-	<br>
+	<?php if($error=="points"):?> class="alert-danger"<?php endif; ?>> 	 
+	
 
 	<input type="text" name="year" placeholder="Год рождения" value="<?= htmlspecialchars($student->getYear())?>" 
-	<?if($error=="year"):?> style="border:2px solid red;"<?endif?>> 
-	<br>
+	<?php if($error=="year"):?> class="alert-danger"<?php endif; ?>> 
+	
 
-	<select size="1" name="place" <?if($error=="place"):?> style="border:2px solid red;"<?endif?>><option disabled selected> Проживание</option>
+	<select size="1" name="place" <?if($error=="place"):?> class="alert-danger"<?php endif; ?>>
+	<option disabled selected> Проживание</option>
  	<option value="local" <?php if($student->getPlace()=='local'): ?> selected<?php endif; ?>>Местный </option>
 	<option value="nonlocal"  <?php if($student->getPlace()=='nonlocal'): ?> selected<?php endif; ?>>Иногородний</option></select> 
-	<br>
-
-	<input type="submit" name="submit" value="отправить">
+	
+	<input type="submit" name="submit" value="Отправить" class="btn btn-primary">
 </form>
 
-
-
-<a href="list.php"> Спиок студентов</a>
 	
+<?php include "templates/footer.html"; ?>

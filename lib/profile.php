@@ -72,6 +72,11 @@ class Profile
         $this->code = $newcode;
     }
     
+    public function setID($id)
+    {
+        $this->id = $id;
+    }
+    
     public function getID()
     {
         return $this->id;
@@ -123,5 +128,3 @@ class Profile
     }
     
 }
-
-?>
