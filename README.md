@@ -1,4 +1,6 @@
-# Students
+Простой CRUD на чистом PHP.
+
+
 Student list.
 
 Задание:
